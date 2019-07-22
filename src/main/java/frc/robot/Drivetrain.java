@@ -1,8 +1,6 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class Drivetrain {
@@ -19,26 +17,27 @@ public class Drivetrain {
     //All Of The Drivetrain Methods Are Below, Dictating All Of The Possible Actions Of The Drivetrain
 
     public void driveForward(double driveSpeed) {
-        //Use The leftDriveSpeed and rightDriveSpeed variables to tell the DifferentialDrive to move the robot
-        //Hint: Look at the Differential Drive class on WPI
-        driveT.tankDrive(driveSpeed, driveSpeed);
+        
+        driveT.tankDrive(-driveSpeed, -driveSpeed); // negative is forward...
     }
 
     public void driveBackward(double driveSpeed) {
-        //Use The leftDriveSpeed and rightDriveSpeed variables to tell the DifferentialDrive to move the robot
-        //Hint: Look at the Differential Drive class on WPI
-        driveT.tankDrive(-driveSpeed, -driveSpeed);
+        
+        driveT.tankDrive(driveSpeed, driveSpeed);
     }
 
     public void turnLeft(double driveSpeed) {
-        //Use The leftDriveSpeed and rightDriveSpeed variables to tell the DifferentialDrive to move the robot
-        //Hint: Look at the Differential Drive class on WPI
-        driveT.tankDrive(driveSpeed, -driveSpeed);
+        
+        driveT.tankDrive(driveSpeed, -driveSpeed); 
     }
 
     public void turnRight(double driveSpeed) {
-        //Use The leftDriveSpeed and rightDriveSpeed variables to tell the DifferentialDrive to move the robot
-        //Hint: Look at the Differential Drive class on WPI
+        
         driveT.tankDrive(-driveSpeed, driveSpeed);
+    }
+
+    public void drive(double leftSpeed, double rightSpeed) {
+
+        driveT.tankDrive(-leftSpeed, -rightSpeed);
     }
 }

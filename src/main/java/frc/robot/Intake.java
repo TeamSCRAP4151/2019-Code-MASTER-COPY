@@ -5,36 +5,33 @@ import edu.wpi.first.wpilibj.Spark;
 
 public class Intake {
 
-    public boolean isOpen = false;
-    public boolean goForward = false;
+    //Roller Controller
+    Spark roller = new Spark(RobotMap.Roller);
+    
+    //Mechanism Controller
+    DoubleSolenoid solenoid = new DoubleSolenoid(RobotMap.Solenoid_Left, RobotMap.Solenoid_Right); 
 
-    //Create Roller Controllers
-    Spark leftRoll = new Spark(RobotMap.Roller_Left);
-    Spark rightRoll = new Spark(RobotMap.Roller_Right);
-    //Create Mechanism Controllers
-    DoubleSolenoid fullExt = new DoubleSolenoid(0, 1);
-
-    public void rollForward(double speed) {
-
-        leftRoll.set(-speed);
-        rightRoll.set(speed);
+    public void roll(boolean direction, double speed) {
         
-    } 
+        if(direction==true) {
+            roller.set(speed);
+        } else {
+            roller.set(-speed);
+        }
+    }
 
-    public void rollBackward(double speed) {
-
-        leftRoll.set(speed);
-        rightRoll.set(-speed);
-
+    public void stop() {
+        
+        roller.set(0);
     }
 
     public void open() {
 
-        fullExt.set(DoubleSolenoid.Value.kReverse);      
+        solenoid.set(DoubleSolenoid.Value.kReverse);      
     }
 
     public void close()
     {
-        fullExt.set(DoubleSolenoid.Value.kForward);
+        solenoid.set(DoubleSolenoid.Value.kForward);
     }
 }

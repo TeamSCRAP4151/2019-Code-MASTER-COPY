@@ -1,31 +1,25 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot {
 
   CameraSystem camera = new CameraSystem();
   OI oi = new OI();
+  PowerDistributionPanel power = new PowerDistributionPanel();
+  Compressor compressor = new Compressor(RobotMap.Compress_Port);
 
   @Override
   public void robotInit() { 
     
-    Compressor c;
-    PowerDistributionPanel power;
-
-    power = new PowerDistributionPanel();
     power.clearStickyFaults();
-
-    c = new Compressor(0); //default for PCM
-    c.setClosedLoopControl(true);
-    
+    compressor.setClosedLoopControl(true);
     camera.useFrontCamera();
   }
 
-  //Add Auto Init & Periodic For Sandstorm Period As Otherwise Commands Will Not Triggers
+  //Add Auto Init & Periodic For Sandstorm Period As Otherwise Commands Will Not Trigger
 
   @Override
   public void teleopInit() {
@@ -33,9 +27,10 @@ public class Robot extends IterativeRobot {
   }
 
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic() { //Comment Out Any Overlapping Controls! Otherwise A Non Active Controller Can Cause Errors
     
-    oi.readInput();
+    oi.readXboxInput(); 
+    //oi.readBongoInput();
   }
 
   @Override

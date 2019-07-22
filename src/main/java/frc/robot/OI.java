@@ -6,98 +6,108 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 public class OI {
 
     //Create Controllers Here
-        XboxController Xbox = new XboxController(RobotMap.Xbox_Port);
+    XboxController Xbox = new XboxController(RobotMap.Xbox_Port);
+    Bongo bongo = new Bongo(RobotMap.Bongo_Port);
        
     //Create Subsystems (Drivetrain, Intake etc. Here)
-
+    CameraSystem camera = new CameraSystem();
     Drivetrain driveT = new Drivetrain();
-    Elevator sheldon = new Elevator();
+    Elevator elevator = new Elevator();
     Intake intake = new Intake();
+    
+    boolean frontActive = true; 
 
-    boolean isOpen = false;
-
-    public void readInput() {
-
-        //Use If Statements To Determine When Each Subsystem's Methods/Commands 
-        //This Class Is A Long List Of If Statements. DO NOT USE ELSE!
-
-        if (Xbox.getAButton()==true) { //The A Button on the Xbox controller sets the elevator to a set height level with the lowest rocket hatch panel port.
-
-//lowheight
-
-        } else if (Xbox.getBButton()==true) { //The B Button on the Xbox controller sets the elevator to a set height level with the middle rocket hatch panel port.
-
-//mediumortop
-
-        } else if (Xbox.getYButton()==true) { //The Y Button on the Xbox controller sets the elevator to a set height level with the highest rocket hatch panel port.
-
-//highheight
-
-        } else if (Xbox.getXButton()==true) { //The X Button on the Xbox controller has an undecided purpose. Perhaps holding down this and pressing the other letter buttonsset the height to cargo ports on the rocket.
-
-//undecided
-
-        }
+    public void readXboxInput() {
         
         if (Xbox.getY(Hand.kLeft)>0.5) { //When the left trigger on the controller is flicked upward, the robot will move forward.
                 
-            driveT.driveForward(.9);
+            driveT.driveForward(.7);
 
         } else if (Xbox.getY(Hand.kLeft)<-0.5) { //When the left trigger on the controller is flicked downward, the robot will move backwards.
 
-                driveT.driveBackward(.9);
+                driveT.driveBackward(.7);
 
         } else if (Xbox.getX(Hand.kLeft)>0.5) { //When the left trigger on the controller is flicked to the right, the robot will turn right
 
-                driveT.turnLeft(.9);
+                driveT.turnLeft(.6);
 
         } else if (Xbox.getX(Hand.kLeft)<-0.5) { //When the left trigger on the controller is flicked to the left... take a wild guess.
             
-                driveT.turnRight(.9);
+                driveT.turnRight(.6);
 
         }
 
-        if (Xbox.getY(Hand.kRight)>0.1) {
-                sheldon.raiseElevator(.7);
+        if (Xbox.getTriggerAxis(Hand.kRight) > .5) {
+                elevator.move(.8);
         }
-        else if (Xbox.getY(Hand.kRight)<0.1) {
-                sheldon.raiseElevator(0);
+        else if (Xbox.getTriggerAxis(Hand.kLeft) > .5) {
+                elevator.move(-.5);
         }
-        if (Xbox.getY(Hand.kRight)<-0.1) {
-                sheldon.raiseElevator(-.7);
+        else {
+                elevator.move(0);
         }
-       /* if (Xbox.getY(Hand.kRight)<-0.2) {
-                sheldon.lowerElevator(-0.5);
-        }
-        else if (Xbox.getY(Hand.kRight)==0) {
-                sheldon.lowerElevator(0);
-        }*/
+      
         
-        if (Xbox.getTriggerAxis(Hand.kLeft)>0.1) { //Pressing down on the left trigger on the controller will raise the robot's arm
+        if (Xbox.getBumper(Hand.kLeft)) { //Xbox.getTriggerAxis(Hand.kLeft)>0.1
+        
+                intake.open();
+        } 
 
-          if(isOpen == false) {
-                  intake.open();
-           } else {
-                    intake.close();
-            }
+        if(Xbox.getBumper(Hand.kRight)) {
+
+                intake.close();
+        }
+        
+        if (Xbox.getY(Hand.kRight) > .5) { 
+
+                intake.roll(true, .9);
+
+        } else if (Xbox.getY(Hand.kRight) < -.5) {
+
+                intake.roll(false, .9);
+
+        } else {
                 
-        } else if (Xbox.getTriggerAxis(Hand.kRight)>0.1) { //Pressing down on the right trigger on the controller will lower the robot's arm.
+                intake.stop();
+        }
 
-                if(intake.goForward == true) {
-                     intake.rollForward(1);
+        if (Xbox.getYButton()) { 
+
+                if(frontActive == true) {
+                        camera.useBackCamera();
+                        frontActive = false;
                 } else {
-                     intake.rollBackward(1);   
+                        camera.useFrontCamera();
+                        frontActive = true;
                 }
         }
+    }
 
-        if (Xbox.getBumper(Hand.kLeft)==true) { //
+    public void readBongoInput() {
 
-                //CCCAAAAAMMMMMEEERRRRAAA
+        if(bongo.getTopLeft()) {
+                //Method
+        }
 
-        } else if (Xbox.getBumper(Hand.kRight)==true) {
+        if(bongo.getTopRight()) {
+                //Method
+        }
 
-//plan z
+        if(bongo.getBottomLeft()) {
+                //Method
+        }
 
+        if(bongo.getBottomRight()) {
+                //Method
+        }
+
+        if(bongo.getCenterButton()) {
+                //Method
+        }
+
+        if(bongo.getClap()) {
+                TheOnlyValidAuto auto = new TheOnlyValidAuto();
+                auto.PlanZ(driveT);
         }
     }
 }

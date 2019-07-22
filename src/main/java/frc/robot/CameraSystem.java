@@ -1,25 +1,22 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.CameraServer;
-
-//Import WPI Lib
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSink;
+import edu.wpi.first.cameraserver.CameraServer;
 
 public class CameraSystem {
+	
+    UsbCamera frontCamera = CameraServer.getInstance().startAutomaticCapture(0);
+    UsbCamera backCamera = CameraServer.getInstance().startAutomaticCapture(1);
+    VideoSink server = CameraServer.getInstance().getServer();
 
-    //Create Cameras
-    
     public void useFrontCamera() {
-            //Turn On Front, Turn Off Back
 
-            CameraServer.getInstance().startAutomaticCapture();
-
-            //Start New Feed
+        server.setSource(frontCamera);
     }
 
-    public void useBackCamera()
-    {
-        //Turn Off Back, Turn On Front
+    public void useBackCamera() {
 
-        //Start New Feed
+        server.setSource(backCamera);
     }
 } 
