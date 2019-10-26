@@ -14,9 +14,9 @@ public class Intake {
     public void roll(boolean direction, double speed) {
         
         if(direction==true) {
-            roller.set(speed);
+            roller.set(-speed - 0.25);
         } else {
-            roller.set(-speed);
+            roller.set(speed +0.5);
         }
     }
 

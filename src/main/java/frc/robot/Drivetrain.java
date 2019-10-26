@@ -28,16 +28,36 @@ public class Drivetrain {
 
     public void turnLeft(double driveSpeed) {
         
-        driveT.tankDrive(driveSpeed, -driveSpeed); 
+        driveT.tankDrive(-driveSpeed, driveSpeed); 
     }
 
     public void turnRight(double driveSpeed) {
         
-        driveT.tankDrive(-driveSpeed, driveSpeed);
+        driveT.tankDrive(driveSpeed, -driveSpeed);
     }
 
     public void drive(double leftSpeed, double rightSpeed) {
 
         driveT.tankDrive(-leftSpeed, -rightSpeed);
+    }
+    
+    public void setSlowSpeed() {
+        driveT.setMaxOutput(.56);
+    }
+
+    public void setAndriProofSpeed() {
+        driveT.setMaxOutput(.25);
+    }
+
+    public void setFullSpeed() {
+        driveT.setMaxOutput(1);
+    }
+
+    public void setCustomSpeed(double driveSpeed) {
+        driveT.setMaxOutput(driveSpeed);
+    }
+
+    public void warpDrive(double y, double x, boolean spin) {
+        driveT.curvatureDrive(y, x, spin);
     }
 }

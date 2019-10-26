@@ -19,22 +19,32 @@ public class Robot extends TimedRobot {
     camera.useFrontCamera();
   }
 
-  //Add Auto Init & Periodic For Sandstorm Period As Otherwise Commands Will Not Trigger
-
   @Override
   public void teleopInit() {
     
   }
 
   @Override
-  public void teleopPeriodic() { //Comment Out Any Overlapping Controls! Otherwise A Non Active Controller Can Cause Errors
+  public void teleopPeriodic() { 
     
-    oi.readXboxInput(); 
-    //oi.readBongoInput();
+    //oi.readAndriInput(); 
+    //oi.readBuddySystemInput();
+    //oi.readTheBestInput();
+    //oi.warpDrive();
+    //oi.stationaryInput();
+    oi.kiddieInput();
   }
 
   @Override
   public void disabledInit() {
 
   }
+
+  @Override
+  public void autonomousPeriodic() {
+    
+    teleopPeriodic();
+
+  }
+
 }
