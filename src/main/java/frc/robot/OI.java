@@ -305,16 +305,31 @@ public class OI {
 
     public void warpDrive() {
 
-        if(Xbox.getY(Hand.kRight)>.1 || Xbox.getY(Hand.kRight)<-.1) {
+        if(Xbox.getTriggerAxis(Hand.kRight)>.15 ) {
                 
-            driveT.warpDrive(Xbox.getY(Hand.kRight), Xbox.getX(Hand.kLeft), Xbox.getRawButton(13));
+            driveT.warpDrive(Xbox.getTriggerAxis(Hand.kRight), Xbox.getX(Hand.kLeft), Xbox.getRawButton(10));
                 
         } else {
                 
-            driveT.warpDrive(Xbox.getY(Hand.kRight), 0, Xbox.getRawButton(13));
+            driveT.warpDrive(Xbox.getTriggerAxis(Hand.kRight), 0, Xbox.getRawButton(10));
                 
-        }
+        } 
+
+        if(Xbox.getTriggerAxis(Hand.kLeft)>.15) {
+                
+                driveT.warpDrive(-Xbox.getTriggerAxis(Hand.kLeft), Xbox.getX(Hand.kLeft), Xbox.getRawButton(10));
+                    
+            } else {
+                    
+                driveT.warpDrive(-Xbox.getTriggerAxis(Hand.kLeft), 0, Xbox.getRawButton(10));
+                    
+            } 
     }
+
+
+
+
+
 
     public void stationaryInput() {
         

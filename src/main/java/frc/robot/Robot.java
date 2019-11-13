@@ -31,8 +31,8 @@ public class Robot extends TimedRobot {
     //oi.readBuddySystemInput();
     //oi.readTheBestInput();
     //oi.warpDrive();
-    //oi.stationaryInput();
-    oi.kiddieInput();
+    oi.stationaryInput();
+    //oi.kiddieInput();
   }
 
   @Override
