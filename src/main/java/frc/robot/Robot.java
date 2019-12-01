@@ -30,8 +30,8 @@ public class Robot extends TimedRobot {
     //oi.readAndriInput(); 
     //oi.readBuddySystemInput();
     //oi.readTheBestInput();
-    //oi.warpDrive();
-    oi.stationaryInput();
+    oi.warpDrive();
+    //oi.stationaryInput();
     //oi.kiddieInput();
   }
 

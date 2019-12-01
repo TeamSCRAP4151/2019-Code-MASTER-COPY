@@ -11,9 +11,9 @@ public class Intake {
     //Mechanism Controller
     DoubleSolenoid solenoid = new DoubleSolenoid(RobotMap.Solenoid_Left, RobotMap.Solenoid_Right); 
 
-    public void roll(boolean direction, double speed) {
+    public void roll(boolean rollOut, double speed) {
         
-        if(direction==true) {
+        if(rollOut==true) {
             roller.set(-speed - 0.25);
         } else {
             roller.set(speed +0.5);

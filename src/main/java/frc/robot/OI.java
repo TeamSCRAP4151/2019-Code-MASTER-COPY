@@ -305,25 +305,54 @@ public class OI {
 
     public void warpDrive() {
 
-        if(Xbox.getTriggerAxis(Hand.kRight)>.15 ) {
-                
-            driveT.warpDrive(Xbox.getTriggerAxis(Hand.kRight), Xbox.getX(Hand.kLeft), Xbox.getRawButton(10));
-                
-        } else {
-                
-            driveT.warpDrive(Xbox.getTriggerAxis(Hand.kRight), 0, Xbox.getRawButton(10));
-                
-        } 
 
-        if(Xbox.getTriggerAxis(Hand.kLeft)>.15) {
+        if (Xbox.getTriggerAxis(Hand.kRight)>.15 ) { //Forward control
                 
-                driveT.warpDrive(-Xbox.getTriggerAxis(Hand.kLeft), Xbox.getX(Hand.kLeft), Xbox.getRawButton(10));
-                    
-            } else {
-                    
-                driveT.warpDrive(-Xbox.getTriggerAxis(Hand.kLeft), 0, Xbox.getRawButton(10));
-                    
-            } 
+                driveT.warpDrive(Xbox.getTriggerAxis(Hand.kRight), Xbox.getX(Hand.kLeft), Xbox.getRawButton(10));
+                
+        }
+        else if (Xbox.getTriggerAxis(Hand.kLeft)>.15) {//Reverse control
+                
+                driveT.warpDrive(-Xbox.getTriggerAxis(Hand.kLeft), -Xbox.getX(Hand.kLeft), Xbox.getRawButton(10));          
+        }  
+
+
+        //Speed Controls
+        if (Xbox.getXButtonPressed() == true) {
+                
+                driveT.setSlowSpeed();
+        }
+        if (Xbox.getBButtonPressed() == true) {
+                
+                driveT.setFullSpeed();
+        }
+        if (Xbox.getAButtonPressed() == true) {
+                
+                driveT.setAndriProofSpeed();
+        }
+
+        //Elevator up/down controls
+        if (Xbox.getY(Hand.kRight) < -.15 || Xbox.getY(Hand.kRight) > .15) {
+                elevator.move(Xbox.getY(Hand.kRight));
+        }
+
+        //pneumatics open/close controls
+        if (Xbox.getBumper(Hand.kRight)) {
+                intake.open();
+        }
+        else if (Xbox.getBumper(Hand.kLeft)) {
+                intake.close();
+        }
+
+        //intake roll controls
+        if (Xbox.getPOV() == 90) { //DPAD right
+                intake.roll(true, 1);
+        }
+        else if (Xbox.getPOV() == 270) {
+                intake.roll(false, 1);
+        }
+
+
     }
 
 
