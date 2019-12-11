@@ -332,7 +332,7 @@ public class OI {
         }
 
         //Elevator up/down controls
-        if (Xbox.getY(Hand.kRight) < -.15 || Xbox.getY(Hand.kRight) > .15) {
+        if (Xbox.getY(Hand.kRight) < -.3 || Xbox.getY(Hand.kRight) > .3) {
                 elevator.move(Xbox.getY(Hand.kRight));
         }
 
@@ -345,11 +345,14 @@ public class OI {
         }
 
         //intake roll controls
-        if (Xbox.getPOV() == 90) { //DPAD right
-                intake.roll(true, 1);
+        if (Xbox.getX(Hand.kRight) > .3) { //Right joystick right
+                intake.roll(true, (Xbox.getX(Hand.kRight)/2));
         }
-        else if (Xbox.getPOV() == 270) {
-                intake.roll(false, 1);
+         if (Xbox.getX(Hand.kRight) < -.3) { //Right joystick left
+                intake.roll(false, -(Xbox.getX(Hand.kRight)/2));
+        }
+        else {
+                intake.roll(false, 0);
         }
 
 

@@ -27,10 +27,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() { 
     
-    //oi.readAndriInput(); 
+    oi.readAndriInput(); 
     //oi.readBuddySystemInput();
     //oi.readTheBestInput();
-    oi.warpDrive();
+    //oi.warpDrive();
     //oi.stationaryInput();
     //oi.kiddieInput();
   }
